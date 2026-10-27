@@ -1,0 +1,12 @@
+{{> welcome-menu active="signup"}}
+<section class="section">
+  <h1 class="title">Create an account</h1>
+  {{> error}}
+  <form action="/register" method="POST">
+    <div class="field"><label class="label" for="first-name">First name</label><input id="first-name" class="input" type="text" name="firstName" autocomplete="given-name" required></div>
+    <div class="field"><label class="label" for="last-name">Last name</label><input id="last-name" class="input" type="text" name="lastName" autocomplete="family-name" required></div>
+    <div class="field"><label class="label" for="email">Email</label><input id="email" class="input" type="email" name="email" autocomplete="email" required></div>
+    <div class="field"><label class="label" for="password">Password</label><input id="password" class="input" type="password" name="password" autocomplete="new-password" minlength="8" required></div>
+    <button class="button is-link" type="submit">Create account</button>
+  </form>
+</section>

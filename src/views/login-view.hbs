@@ -1,0 +1,10 @@
+{{> welcome-menu active="login"}}
+<section class="section">
+  <h1 class="title">Log in</h1>
+  {{> error}}
+  <form action="/authenticate" method="POST">
+    <div class="field"><label class="label" for="email">Email</label><input id="email" class="input" type="email" name="email" autocomplete="email" required></div>
+    <div class="field"><label class="label" for="password">Password</label><input id="password" class="input" type="password" name="password" autocomplete="current-password" required></div>
+    <button class="button is-link" type="submit">Log in</button>
+  </form>
+</section>

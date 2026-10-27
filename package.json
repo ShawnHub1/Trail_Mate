@@ -1,0 +1,39 @@
+{
+  "name": "play_time",
+  "version": "0.1.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon --exec npm start",
+    "lint": "eslint . --ext .js",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@hapi/cookie": "^12.0.1",
+    "@hapi/hapi": "^21.4.10",
+    "@hapi/vision": "^7.0.3",
+    "arkit": "^2.1.0",
+    "dotenv": "^18.0.4",
+    "handlebars": "^4.7.9",
+    "joi": "^18.2.9",
+    "lowdb": "^7.0.1",
+    "mongoose": "^9.11.0",
+    "uuid": "^14.0.2"
+  },
+  "devDependencies": {
+    "axios": "^1.20.0",
+    "chai": "^6.2.2",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "mocha": "^10.8.2",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.9.6"
+  }
+}

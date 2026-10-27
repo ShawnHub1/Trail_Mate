@@ -1,0 +1,15 @@
+{{#if places.length}}
+  {{#each places}}
+    <article class="box">
+      <h2 class="title is-5">{{name}}</h2>
+      <div class="buttons">
+        <a href="/place/{{_id}}" class="button is-light">View place</a>
+        <form action="/dashboard/places/{{_id}}/delete" method="POST">
+          <button class="button is-danger is-light" type="submit">Remove</button>
+        </form>
+      </div>
+    </article>
+  {{/each}}
+{{else}}
+  <div class="notification is-light">You have not added a place yet</div>
+{{/if}}

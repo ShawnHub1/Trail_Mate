@@ -1,0 +1,10 @@
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar-brand">{{> trail-mate-brand}}</div>
+  <div class="navbar-menu is-active"><div class="navbar-end"><div class="navbar-item"><div class="buttons">
+    <a id="dashboard" class="button" href="/dashboard">My places</a>
+    <a id="about" class="button" href="/about">About</a>
+    <form action="/logout" method="POST"><button id="logout" class="button is-light" type="submit">Log out</button></form>
+  </div></div></div></div>
+</nav>
+<script>const activeLink = document.getElementById("{{active}}"); if (activeLink) activeLink.classList.add("is-primary");</script>
+

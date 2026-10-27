@@ -1,0 +1,11 @@
+{{> menu active="dashboard"}}
+
+<section class="section">
+  <h1 class="title">Places to explore</h1>
+  <p class="subtitle">Keep a personal list of trails, landmarks, and outdoor places worth visiting.</p>
+  {{> error}}
+  {{> add-place}}
+  <div class="mt-5">
+    {{> list-places}}
+  </div>
+</section>
