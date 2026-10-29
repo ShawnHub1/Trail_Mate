@@ -1,0 +1,12 @@
+{{> menu active="settings"}}
+<section class="section">
+  <h1 class="title">Account settings</h1>
+  <p class="subtitle">Update the name and email address on your account.</p>
+  {{> error}}
+  <form action="/settings" method="POST">
+    <div class="field"><label class="label" for="first-name">First name</label><div class="control"><input class="input" id="first-name" name="firstName" maxlength="60" value="{{user.firstName}}" required></div></div>
+    <div class="field"><label class="label" for="last-name">Last name</label><div class="control"><input class="input" id="last-name" name="lastName" maxlength="60" value="{{user.lastName}}" required></div></div>
+    <div class="field"><label class="label" for="email">Email</label><div class="control"><input class="input" id="email" name="email" type="email" value="{{user.email}}" required></div></div>
+    <button class="button is-link" type="submit">Save settings</button>
+  </form>
+</section>

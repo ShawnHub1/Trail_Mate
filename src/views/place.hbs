@@ -2,5 +2,12 @@
 <section class="section">
   <a href="/dashboard">&larr; Back to places</a>
   <h1 class="title mt-4">{{place.name}}</h1>
-  <p>Saved place. Need to add more detail later</p>
+ {{#if place.description}}<p class="content">{{place.description}}</p>{{else}}<p class="has-text-grey">No description has been added.</p>{{/if}}
+  {{#if place.latitude}}
+    <p class="mt-4"><strong>Coordinates:</strong> {{place.latitude}}, {{place.longitude}}</p>
+    <p><a class="button is-light mt-2" href="https://www.openstreetmap.org/?mlat={{place.latitude}}&mlon={{place.longitude}}#map=15/{{place.latitude}}/{{place.longitude}}" target="_blank" rel="noopener noreferrer">View on OpenStreetMap</a></p>
+  {{else}}
+    <p class="mt-4 has-text-grey">No coordinates have been added.</p>
+  {{/if}}
+  <p class="mt-4"><a href="/api/places/{{place._id}}.json">View place JSON</a></p>
 </section>

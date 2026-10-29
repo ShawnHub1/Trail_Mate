@@ -28,4 +28,21 @@ suite("User model", () => {
       assert.include(error.message, "already exists");
     }
   });
+  test("updates only the selected profile and keeps password private", async () => {
+    const first = await db.userStore.addUser(sampleUser);
+    const second = await db.userStore.addUser({ ...sampleUser, email: "lisa@example.com" });
+    const updated = await db.userStore.updateUser(first._id, {
+      firstName: "Margaret", lastName: "Simpson", email: "maggie.new@example.com",
+    });
+    assert.equal(updated.firstName, "Margaret");
+    assert.notProperty(updated, "password");
+    assert.equal((await db.userStore.getUserById(second._id)).email, "lisa@example.com");
+    assert.isTrue(await db.userStore.verifyPassword(await db.userStore.getUserByEmail(updated.email), sampleUser.password));
+    try {
+      await db.userStore.updateUser(second._id, { firstName: "Lisa", lastName: "Simpson", email: updated.email });
+      assert.fail("Expected duplicate email to be rejected");
+    } catch (error) {
+      assert.include(error.message, "already exists");
+    }
+  });
 });

@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserCredentialsSpec, UserProfileSpec } from "../models/joi-schemas.js";
 
 export const usersController = {
   index: {
@@ -67,4 +67,27 @@ export const usersController = {
     const user = await db.userStore.getUserById(session.id);
     return user ? { isValid: true, credentials: user } : { isValid: false };
   },
-};
+ showSettings: {
+    handler: (request, h) => h.view("settings", { title: "Your account settings", user: request.auth.credentials }),
+  },
+  updateSettings: {
+    validate: {
+      payload: UserProfileSpec,
+      options: { abortEarly: false },
+      failAction: (request, h, error) => h.view("settings", {
+        title: "Your account settings", user: { ...request.auth.credentials, ...request.payload }, errors: error.details,
+      }).takeover().code(400),
+    },
+    handler: async (request, h) => {
+      try {
+        await db.userStore.updateUser(request.auth.credentials._id, request.payload);
+        return h.redirect("/settings");
+      } catch (error) {
+        return h.view("settings", {
+          title: "Your account settings", user: { ...request.auth.credentials, ...request.payload },
+          errors: [{ message: error.code === 11000 ? "An account with that email already exists." : error.message }],
+        }).takeover().code(409);
+      }
+    },
+  },
+}

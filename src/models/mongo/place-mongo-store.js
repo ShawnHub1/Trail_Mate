@@ -11,6 +11,11 @@ export const placeMongoStore = {
     if (!Mongoose.isValidObjectId(id)) return null;
     return Place.findById(id).lean();
   },
+  async getPlaceJson(id, userId) {
+    if (!Mongoose.isValidObjectId(id) || !Mongoose.isValidObjectId(userId)) return null;
+    const place = await Place.findOne({ _id: id, userId }).lean();
+    return place ? JSON.stringify(place, null, 2) : null;
+  },
   async addPlace(place) {
     const saved = await Place.create(place);
     return saved.toObject();
