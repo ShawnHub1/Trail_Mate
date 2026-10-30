@@ -9,6 +9,8 @@ import Cookie from "@hapi/cookie";
 import { apiRoutes } from "./api-routes.js";
 import { webRoutes } from "./web-routes.js";
 import { usersController } from "./controllers/users-controller.js";
+import { connectMongo } from "./models/mongo/connect.js";
+import { useMongoStores } from "./models/db.js";
 
 dotenv.config();
 
@@ -16,6 +18,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function init() {
+  if (process.env.DATABASE_URL) {
+    await connectMongo();
+    useMongoStores();
+    console.log("Connected to MongoDB.");
+  } else {
+    console.warn("DATABASE_URL is not set; using temporary in-memory storage.");
+  }
+
   const server = Hapi.server({ port: Number(process.env.PORT) || 3000, host: process.env.HOST || "localhost" });
   await server.register(Vision);
   await server.register(Cookie);

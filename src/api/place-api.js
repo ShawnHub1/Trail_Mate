@@ -9,7 +9,7 @@ export const placeApi = {
   findOne: {
     handler: async (request) => {
       const place = await db.placeStore.getPlaceById(request.params.id);
-      if (!place || place.userId !== request.auth.credentials._id) return Boom.notFound("Place not found");
+      if (!place || String(place.userId) !== String(request.auth.credentials._id)) return Boom.notFound("Place not found");
       return place;
     },
   },
@@ -30,7 +30,7 @@ export const placeApi = {
     validate: { payload: PlaceUpdateSpec },
     handler: async (request) => {
       const place = await db.placeStore.getPlaceById(request.params.id);
-      if (!place || place.userId !== request.auth.credentials._id) return Boom.notFound("Place not found");
+      if (!place || String(place.userId) !== String(request.auth.credentials._id)) return Boom.notFound("Place not found");
       return db.placeStore.updatePlace(place._id, request.payload, place.userId);
     },
   },
