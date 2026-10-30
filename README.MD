@@ -3,7 +3,7 @@
 ## Project Map to be added later 
 
 ## Trail Mate App Details
-Trail Mate is a web app for keeping a personal list of outdoor places for hikes and trail runs
+Trail Mate is a web app for saving trails and hikes. You can add a name, an optional description, difficulty, distance, and coordinates.
 
 ## Setup
 

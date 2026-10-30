@@ -2,6 +2,8 @@
 <section class="section">
   <a href="/dashboard">&larr; Back to places</a>
   <h1 class="title mt-4">{{place.name}}</h1>
+  {{#if place.difficulty}}<p class="mb-2"><strong>Difficulty:</strong> {{place.difficulty}}</p>{{/if}}
+  {{#if place.distanceKm}}<p class="mb-2"><strong>Distance:</strong> {{place.distanceKm}} km</p>{{/if}}  
  {{#if place.description}}<p class="content">{{place.description}}</p>{{else}}<p class="has-text-grey">No description has been added.</p>{{/if}}
   {{#if place.latitude}}
     <p class="mt-4"><strong>Coordinates:</strong> {{place.latitude}}, {{place.longitude}}</p>
