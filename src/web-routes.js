@@ -9,6 +9,8 @@ export const webRoutes = [
   { method: "GET", path: "/login", config: usersController.showLogin },
   { method: "POST", path: "/logout", config: usersController.logout },
   { method: "POST", path: "/register", config: usersController.signup },
+  { method: "GET", path: "/settings", config: usersController.showSettings },
+  { method: "POST", path: "/settings", config: usersController.updateSettings },
   { method: "POST", path: "/authenticate", config: usersController.login },
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "GET", path: "/about", config: aboutController.index },

@@ -23,7 +23,13 @@ export const dashboardController = {
     },
     handler: async (request, h) => {
       const user = request.auth.credentials;
-      await db.placeStore.addPlace({ userId: user._id, name: request.payload.name });
+      await db.placeStore.addPlace({
+        userId: user._id,
+        name: request.payload.name,
+        description: request.payload.description,
+        latitude: request.payload.latitude ?? null,
+        longitude: request.payload.longitude ?? null,
+      });
       return h.redirect("/dashboard");
     },
   },
