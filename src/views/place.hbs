@@ -11,5 +11,8 @@
   {{else}}
     <p class="mt-4 has-text-grey">No coordinates have been added.</p>
   {{/if}}
-  <p class="mt-4"><a href="/api/places/{{place._id}}.json">View place JSON</a></p>
+  <div class="buttons mt-4">
+    <a class="button is-link" href="/dashboard/places/{{place._id}}/edit">Edit place</a>
+    <a href="/api/places/{{place._id}}.json">View place JSON</a>
+  </div>
 </section>

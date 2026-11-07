@@ -1,0 +1,35 @@
+{{> menu active="dashboard"}}
+<section class="section">
+  <a href="/place/{{place._id}}">&larr; Back to place</a>
+  <h1 class="title mt-4">Edit place</h1>
+  {{> error}}
+  <form action="/dashboard/places/{{place._id}}/edit" method="POST">
+    <div class="field">
+      <label class="label" for="place-name">Place name</label>
+      <div class="control"><input id="place-name" class="input" type="text" maxlength="100" name="name" value="{{form.name}}" required></div>
+    </div>
+    <div class="field">
+      <label class="label" for="place-description">Description <span class="has-text-grey is-size-7">(optional, up to 2,000 characters)</span></label>
+      <div class="control"><textarea id="place-description" class="textarea" maxlength="2000" name="description">{{form.description}}</textarea></div>
+    </div>
+    <div class="field">
+      <label class="label" for="place-difficulty">Difficulty <span class="has-text-grey is-size-7">(optional)</span></label>
+      <div class="control"><div class="select"><select id="place-difficulty" name="difficulty">
+        {{#each difficultyOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}
+      </select></div></div>
+    </div>
+    <div class="field">
+      <label class="label" for="place-distance">Distance <span class="has-text-grey is-size-7">(km, optional)</span></label>
+      <div class="control"><input id="place-distance" class="input" type="number" name="distanceKm" min="0.1" step="0.1" value="{{form.distanceKm}}"></div>
+    </div>
+    <fieldset class="field">
+      <legend class="label">Coordinates <span class="has-text-grey is-size-7">(optional)</span></legend>
+      <div class="columns">
+        <div class="column"><div class="field"><label class="label" for="place-latitude">Latitude</label><div class="control"><input id="place-latitude" class="input" type="number" step="any" min="-90" max="90" name="latitude" value="{{form.latitude}}"></div></div></div>
+        <div class="column"><div class="field"><label class="label" for="place-longitude">Longitude</label><div class="control"><input id="place-longitude" class="input" type="number" step="any" min="-180" max="180" name="longitude" value="{{form.longitude}}"></div></div></div>
+      </div>
+    </fieldset>
+    <p class="help mb-3">Enter both coordinates together, or leave both blank.</p>
+    <div class="buttons"><button class="button is-link" type="submit">Save changes</button><a class="button is-light" href="/place/{{place._id}}">Cancel</a></div>
+  </form>
+</section>

@@ -15,6 +15,8 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "GET", path: "/about", config: aboutController.index },
   { method: "GET", path: "/place/{id}", config: placesController.index },
+  { method: "GET", path: "/dashboard/places/{id}/edit", config: placesController.edit },
+  { method: "POST", path: "/dashboard/places/{id}/edit", config: placesController.update },  
   { method: "POST", path: "/dashboard/places", config: dashboardController.addPlace },
   { method: "POST", path: "/dashboard/places/{id}/delete", config: dashboardController.deletePlace },
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } }

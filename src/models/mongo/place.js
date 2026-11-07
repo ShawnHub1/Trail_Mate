@@ -13,6 +13,7 @@ const placeSchema = new Schema({
   latitude: { type: Number, min: -90, max: 90, default: null },
   longitude: { type: Number, min: -180, max: 180, default: null },
   imageUrl: String,
+  imagePublicId: String,  
 }, { timestamps: true });
 
 export const Place = Mongoose.models.Place || Mongoose.model("Place", placeSchema);
