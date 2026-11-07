@@ -20,6 +20,8 @@ export const placeApi = {
         userId: request.auth.credentials._id,
         name: request.payload.name,
         description: request.payload.description,
+        difficulty: request.payload.difficulty ?? "",
+        distanceKm: request.payload.distanceKm ?? null,        
         latitude: request.payload.latitude ?? null,
         longitude: request.payload.longitude ?? null,
       });

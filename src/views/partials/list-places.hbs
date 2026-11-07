@@ -2,6 +2,8 @@
   {{#each places}}
     <article class="box">
       <h2 class="title is-5">{{name}}</h2>
+      {{#if difficulty}}<span class="tag is-info is-light mb-2">{{difficulty}}</span>{{/if}}
+      {{#if distanceKm}}<span class="tag is-light mb-2">{{distanceKm}} km</span>{{/if}}  
       {{#if description}}<p class="mb-3">{{description}}</p>{{/if}}
       <div class="buttons">
         <a href="/place/{{_id}}" class="button is-light">View place</a>

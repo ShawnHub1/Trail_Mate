@@ -3,7 +3,11 @@ import { db } from "../models/db.js";
 import { UserProfileSpec } from "../models/joi-schemas.js";
 
 export const userApi = {
-  findMe: { handler: (request) => db.userStore.getUserById(request.auth.credentials._id) },
+  findMe: { handler: (request) => db.userStore.getUserById(request.auth.credentials._id),
+    tags: ["api"],
+    description: "Get current user",
+    notes: "Returns the details of the currently logged-in user",
+   },
   updateMe: {
     validate: { payload: UserProfileSpec },
     handler: async (request) => {
@@ -16,5 +20,8 @@ export const userApi = {
         throw error;
       }
     },
+    tags: ["api"],
+    description: "Update current user",
+    notes: "Updates the profile details of the currently logged-in user",
   },
 };
