@@ -35,7 +35,7 @@ async function init() {
     console.warn("DATABASE_URL is not set; using temporary in-memory storage.");
   }
 
-  const server = Hapi.server({ port: Number(process.env.PORT) || 3000, host: process.env.HOST || "localhost" });
+  const server = Hapi.server({ port: Number(process.env.PORT) || 3000, host: process.env.HOST || "0.0.0.0" });
 
 await server.register([
   Vision,
