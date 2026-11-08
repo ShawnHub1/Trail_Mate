@@ -2,6 +2,7 @@
 <section class="section">
   <a href="/dashboard">&larr; Back to places</a>
   <h1 class="title mt-4">{{place.name}}</h1>
+  {{#if place.imageUrl}}<figure class="image mb-4"><img src="{{place.imageUrl}}" alt="Photo of {{place.name}}" style="max-width: 48rem; max-height: 32rem; object-fit: contain;"></figure>{{/if}}
   {{#if place.difficulty}}<p class="mb-2"><strong>Difficulty:</strong> {{place.difficulty}}</p>{{/if}}
   {{#if place.distanceKm}}<p class="mb-2"><strong>Distance:</strong> {{place.distanceKm}} km</p>{{/if}}  
  {{#if place.description}}<p class="content">{{place.description}}</p>{{else}}<p class="has-text-grey">No description has been added.</p>{{/if}}
@@ -11,5 +12,8 @@
   {{else}}
     <p class="mt-4 has-text-grey">No coordinates have been added.</p>
   {{/if}}
-  <p class="mt-4"><a href="/api/places/{{place._id}}.json">View place JSON</a></p>
+  <div class="buttons mt-4">
+    <a class="button is-link" href="/dashboard/places/{{place._id}}/edit">Edit place</a>
+    <a href="/api/places/{{place._id}}.json">View place JSON</a>
+  </div>
 </section>

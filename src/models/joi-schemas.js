@@ -48,3 +48,7 @@ export const UserResponseSpec = Joi.object({
   lastName: Joi.string(),
   email: Joi.string().email(),
 }).label("UserResponse");
+
+export const PlaceWebSpec = PlaceSpec.append({
+  image: Joi.any().optional(),
+}).label("PlaceWebDetails");

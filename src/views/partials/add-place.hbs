@@ -1,4 +1,4 @@
-<form action="/dashboard/places" method="POST">
+<form action="/dashboard/places" method="POST" enctype="multipart/form-data">
   <div class="field">
     <label class="label" for="place-name">Place name</label>
     <div class="control">
@@ -35,6 +35,62 @@
       <div class="column"><div class="field"><label class="label" for="place-longitude">Longitude</label><div class="control"><input id="place-longitude" class="input" type="number" step="any" min="-180" max="180" name="longitude" value="{{form.longitude}}" placeholder="-6.3275"></div></div></div>
     </div>
   </fieldset>
-  <p class="help mb-3">Enter both coordinates together, or leave both blank.</p>
+  <p class="help mb-3">Enter both coordinates together, or leave both blank.</p> 
+     <div class="card mb-5">
+    <header class="card-header">
+      <p class="card-header-title">Place photo <span class="has-text-grey is-size-7 ml-2">Optional</span></p>
+    </header>
+    <div class="card-content">
+      <div class="columns is-vcentered">
+        <div class="column is-one-third">
+          <figure class="image is-square has-background-light" style="max-width: 16rem;">
+            <img id="place-image-preview" class="is-hidden" src="" alt="Preview of the selected place photo">
+            <div id="place-image-placeholder" class="is-flex is-align-items-center is-justify-content-center has-text-grey" style="position: absolute; inset: 0;">Photo preview</div>
+          </figure>
+        </div>
+        <div class="column">
+          <p class="mb-3">Choose a JPEG, PNG, or WebP image (up to 5 MB). It will upload when you add the place.</p>
+          <div class="file has-name is-fullwidth">
+            <label class="file-label" for="place-image">
+              <input id="place-image" class="file-input" name="image" type="file" accept="image/jpeg,image/png,image/webp">
+              <span class="file-cta">
+                <span class="file-icon"><i class="fas fa-upload" aria-hidden="true"></i></span>
+                <span class="file-label">Choose a file…</span>
+              </span>
+              <span id="place-image-name" class="file-name">No file selected</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <button class="button is-link" type="submit">Add place</button>
 </form>
+<script>
+  const placeImageInput = document.getElementById("place-image");
+  if (placeImageInput) {
+    const placeImageName = document.getElementById("place-image-name");
+    const placeImagePreview = document.getElementById("place-image-preview");
+    const placeImagePlaceholder = document.getElementById("place-image-placeholder");
+    let placeImagePreviewUrl;
+
+    placeImageInput.addEventListener("change", () => {
+      const [file] = placeImageInput.files;
+      if (placeImagePreviewUrl) URL.revokeObjectURL(placeImagePreviewUrl);
+
+      if (!file) {
+        placeImageName.textContent = "No file selected";
+        placeImagePreview.removeAttribute("src");
+        placeImagePreview.classList.add("is-hidden");
+        placeImagePlaceholder.classList.remove("is-hidden");
+        return;
+      }
+
+      placeImageName.textContent = file.name;
+      placeImagePreviewUrl = URL.createObjectURL(file);
+      placeImagePreview.src = placeImagePreviewUrl;
+      placeImagePreview.classList.remove("is-hidden");
+      placeImagePlaceholder.classList.add("is-hidden");
+    });
+  }
+</script>

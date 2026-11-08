@@ -1,8 +1,11 @@
 # Trail Mate
 
-## Project Map to be added later 
+## Project map
 
-## Trail Mate App Details
+Project map to be added later.
+
+## Trail Mate app details
+
 Trail Mate is a web app for saving trails and hikes. You can add a name, an optional description, difficulty, distance, and coordinates.
 
 ## Setup
@@ -21,10 +24,12 @@ The app uses MongoDB whenever `DATABASE_URL` is set. Users and places are stored
 
 - Sign up, log in, and log out with an authenticated cookie session.
 - Passwords are stored as salted scrypt hashes.
-- Add and view personal places with an optional description and optional latitude/longitude pair.
-- Coordinates are numeric; latitude must be between -90 and 90, and longitude between -180 and 180. A place detail page links to OpenStreetMap when coordinates are present.
+- Add, view, edit, and remove your personal places.
+- Place fields include name, description, difficulty, distance in kilometres, and an optional latitude/longitude pair.
+- Coordinates are numeric; latitude must be between -90 and 90, and longitude between -180 and 180. Place detail pages link to OpenStreetMap when coordinates are present.
+- Edit forms validate place data and show errors while preserving submitted values.
+- Place pages and edit actions are scoped to the signed-in account. Attempts to view or edit another user's place return 404.
 - Update your own first name, last name, and email at `/settings`. The session remains active after a profile update.
-- Place and profile access is scoped to the signed-in account.
 
 ## JSON API
 
@@ -36,18 +41,27 @@ All endpoints require the signed-in cookie session. Send and receive JSON for AP
 | `POST` | `/api/places` | `{ "name": "Glendalough Spinc", "description": "A scenic loop", "latitude": 53.0109, "longitude": -6.3275 }` | `201`, created place |
 | `GET` | `/api/places/{id}` | — | `200`, place object |
 | `GET` | `/api/places/{id}.json` | — | `200`, pretty-printed JSON document (`application/json`) |
-| `PUT` | `/api/places/{id}` | Any non-empty subset of `name`, `description`, `latitude`, `longitude` | `200`, updated place |
+| `PUT` | `/api/places/{id}` | Any non-empty subset of `name`, `description`, `difficulty`, `distanceKm`, `latitude`, and `longitude` | `200`, updated place |
 | `DELETE` | `/api/places/{id}` | — | `204` |
 | `GET` | `/api/users/me` | — | `200`, current user's public profile |
 | `PUT` | `/api/users/me` | `{ "firstName": "Maggie", "lastName": "Simpson", "email": "maggie@example.com" }` | `200`, updated public profile |
 
 Place `name` is required on creation and must be 1–100 characters. `description` is optional and has a 2,000 character maximum. Coordinates are optional but must be supplied together. Profile updates accept only `firstName`, `lastName`, and `email`; account IDs and password fields cannot be changed through this endpoint. Attempts to read or change another user's place return `404`. Invalid input returns `400`; duplicate email addresses return `409`; unauthenticated requests are redirected to `/login` by the cookie strategy.
 
-HTML routes are `/signup`, `/login`, `/dashboard`, `/settings`, `/place/{id}`, and `POST /logout`.
+## HTML routes
+
+- `GET /signup` and `GET /login` show the account forms.
+- `POST /register` and `POST /authenticate` create an account and sign in.
+- `POST /logout` signs out.
+- `GET /dashboard` lists the signed-in user's places; `POST /dashboard/places` adds a place.
+- `GET /place/{id}` shows an owned place.
+- `GET /dashboard/places/{id}/edit` shows the edit form; `POST` to the same path validates and saves changes for the owner.
+- `POST /dashboard/places/{id}/delete` removes an owned place.
+- `GET /settings` and `POST /settings` show and update the signed-in user's profile.
 
 ## Tests
 
-Run the core Mocha suite with:
+Run the Mocha suite with:
 
 ```sh
 npm test
@@ -59,7 +73,7 @@ Run lint with:
 npm run lint
 ```
 
-The suite covers account creation and password verification, profile updates, place CRUD and ownership, JSON rendering, and description/coordinate validation.
+The tests cover account creation and password verification, profile updates, place CRUD and ownership, API validation and JSON rendering, and web edit controller behavior including valid updates, invalid submissions, and owner-only access.
 
 ## Deployment
 
